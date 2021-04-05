@@ -18,6 +18,10 @@ led.init(led.IN, led.PULL_HOLD)
 wake1 = Pin(14, mode = Pin.IN)
 esp32.wake_on_ext0(pin = wake1, level = esp32.WAKEUP_ALL_LOW)
 
+while wake1.value() == 0:
+    print('waiting for door to close')
+    utime.sleep(2)
+
 print('Opening secrets')
 with open('secrets.json') as fp:
     secrets = ujson.loads(fp.read())
