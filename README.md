@@ -43,6 +43,24 @@ ampy -p /dev/tty.usbserial-0001 put letterbox/secrets.json
 
 `screen /dev/tty.usbserial-0001 115200`
 
+## Decode payload in The Things Network Console
+
+```
+function Decoder(bytes, port) {
+  // Decode an uplink message from a buffer
+  // (array) of bytes to an object of fields.
+  var decoded = {};
+
+  // Decode bytes to int
+  var testShort = (bytes[1] << 8) | bytes[0];
+
+  // Decode int 
+  decoded.short = testShort;
+
+  return decoded;
+}
+```
+
 ## Credits
 
  * [ESP32 LoRa TTN micropython example](https://gist.github.com/JoooostB/3ec62aaba6282660b9f8dd2e01cf24e5) by [JoooostB](https://gist.github.com/JoooostB)

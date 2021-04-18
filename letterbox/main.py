@@ -2,7 +2,7 @@ import utime
 import machine
 import esp32
 from machine import Pin
-import struct
+import ustruct
 import urandom
 from ulora import TTN, uLoRa
 import ujson
@@ -55,7 +55,7 @@ lora = uLoRa(
 )
 
 epoch = utime.time()
-payload = struct.pack('@Qh', int(epoch), 1)
+payload = ustruct.pack('h', 1)
 
 print('Sending payload')
 lora.send_data(payload, len(payload), lora.frame_counter)
