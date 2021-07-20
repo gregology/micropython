@@ -89,7 +89,7 @@ Add to Home Assistant configuration.yaml
    unique_id: 01234567-89ab-cdef-0123-456789abcdef
    name: "Letterbox Sensor"
    state_topic: "ttn/letterbox/up"
-   value_template: "{{ value_json['short'] }}"
+   value_template: "{{ value_json['payload_fields']['short'] }}"
    payload_on: 1
    payload_off: 0
    off_delay: 10
