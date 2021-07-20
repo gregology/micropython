@@ -1,26 +1,17 @@
-import utime
-import machine
-import esp32
 from machine import Pin
+
+pwr1 = Pin(25, Pin.OUT)
+pwr2 = Pin(21, Pin.OUT)
+pwr1.value(1)
+pwr2.value(1)
+
+import utime
 import ustruct
-import urandom
 from ulora import TTN, uLoRa
 import ujson
 import ubinascii
 
-print("I'm awake")
-
-utime.sleep(4)
-
-print('Settings pins')
-led = Pin(2, Pin.OUT)
-led.init(led.IN, led.PULL_HOLD)
-wake1 = Pin(14, mode = Pin.IN)
-esp32.wake_on_ext0(pin = wake1, level = esp32.WAKEUP_ALL_LOW)
-
-while wake1.value() == 0:
-    print('waiting for door to close')
-    utime.sleep(2)
+utime.sleep(1)
 
 print('Opening secrets')
 with open('secrets.json') as fp:
@@ -64,4 +55,11 @@ print('Waiting 10 seconds for message to send')
 utime.sleep(10)
 
 print('Going to sleep now')
-machine.deepsleep()
+
+while True:
+    print("attempting to close power relay")
+    pwr1.value(0)
+    pwr2.value(0)
+    print('Sleep failed')
+    utime.sleep(10)
+    # todo, add error message when door left open
